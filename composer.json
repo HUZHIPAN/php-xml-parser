@@ -1,0 +1,21 @@
+{
+    "name": "huzhipan/php-xml-parser",
+    "description": "php\u0010\u0010\u0010xml\u0010\u0010\u0010",
+    "type": "composer-plugin",
+    "require": {
+        "php": "^7.3",
+        "php-64bit": "^7.3"
+    },
+    "autoload":{
+        "psr-4":{
+            "xml\\parser\\":"src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pan",
+            "email": "8014084+HUZHIPAN@user.noreply.gitee.com"
+        }
+    ]
+}
