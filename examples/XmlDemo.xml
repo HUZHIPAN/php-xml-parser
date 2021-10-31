@@ -1,5 +1,5 @@
 <soap:Envelope xmlns:soap="http://schelope/" tt='00123' xmlns:srrc="http://ww.c.org.cn">
-    <test>胡志攀helloworld</test>
+    <test>helloworld</test>
     <xs:sequence>
         <xs:element minOccurs="0" name="TransId" type="xs:string"/>
         <xs:element minOccurs="0" name="BizKey" type="xs:string"/>
@@ -14,7 +14,7 @@
     </xs:sequence>
     <soap:Header>
         <srrc:ProviderResponse>
-            <srrc:bizResCd>BIZ-01001</srrc:bizResCd>
+            <srrc:bizResCd>BIZ-11021001</srrc:bizResCd>
             <srrc:bizResText>服务调用成功！</srrc:bizResText>
         </srrc:ProviderResponse>
     </soap:Header>

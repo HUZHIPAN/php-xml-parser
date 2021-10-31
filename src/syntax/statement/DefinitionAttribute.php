@@ -5,6 +5,7 @@ namespace xml\parser\syntax\statement;
 
 
 use xml\parser\lexer\TokenType;
+use xml\parser\parser\Context;
 use xml\parser\struct\Attribute;
 use xml\parser\syntax\SyntaxException;
 
@@ -15,9 +16,11 @@ class DefinitionAttribute extends StatementAbstract
      *
      * Author: huzhipan
      * Time: 2021/10/30 23:12
+     * @param Context $context
+     * @return array
      * @throws SyntaxException
      */
-    public function run()
+    public function run(Context $context)
     {
         $it = $this->getIterator();
 

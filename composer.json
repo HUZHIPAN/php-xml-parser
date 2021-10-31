@@ -3,8 +3,7 @@
     "description": "php\u0010\u0010\u0010xml\u0010\u0010\u0010",
     "type": "composer-plugin",
     "require": {
-        "php": "^7.3",
-        "php-64bit": "^7.3"
+        "php": "^7.1"
     },
     "autoload":{
         "psr-4":{

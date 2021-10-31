@@ -3,7 +3,10 @@
 
 namespace xml\parser\common\interfaces;
 
-
+/**
+ * 可预览下个元素的迭代器
+ * @package xml\parser\common\interfaces
+ */
 interface PeekIterator
 {
     /**

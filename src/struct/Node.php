@@ -18,6 +18,9 @@ class Node
     private $text       = '';    // 节点text值
     private $children   = [];    // 子节点
 
+    // 子节点使用哈希表存放（为false时使用数组，兼容xml多子节点相同名称）
+    private $childNodeUseHashMap = true;
+
     public function __construct($name, $nodeType = null)
     {
         $this->name     = $name;
@@ -45,7 +48,17 @@ class Node
      */
     public function addChild(Node $node)
     {
-        $this->children[$node->getName()] = $node;
+        if (isset($this->children[$node->getName()])) {
+            $this->childNodeUseHashMap = false;
+            $this->children = array_values($this->children);
+        }
+
+        if ($this->childNodeUseHashMap) {
+            $this->children[$node->getName()] = $node;
+        } else {
+            $this->children[] = $node;
+        }
+
     }
 
     /**

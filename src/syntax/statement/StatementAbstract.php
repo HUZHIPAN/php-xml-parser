@@ -6,6 +6,7 @@ namespace xml\parser\syntax\statement;
 
 use xml\parser\common\ArrayPeekIterator;
 use xml\parser\lexer\Token;
+use xml\parser\parser\Context;
 use xml\parser\syntax\SyntaxException;
 
 /**
@@ -24,7 +25,15 @@ abstract class StatementAbstract
         $this->it = new ArrayPeekIterator($tokens);
     }
 
-    public abstract function run();
+    /**
+     * Notice: 语句执行
+     * @param $context Context 程序执行上下文
+     * @return mixed
+     *
+     * Author: huzhipan
+     * Time: 2021/10/31 15:17
+     */
+    public abstract function run(Context $context);
 
     /**
      * Notice: 消耗一个指定单元
@@ -37,11 +46,16 @@ abstract class StatementAbstract
      */
     public function consume($tokenType)
     {
+        if (!$this->getIterator()->hasNext()) {
+            throw new SyntaxException('语义错误，' . ' 期待 ' .$tokenType);
+        }
         $token = $this->getIterator()->next();
         if ($token->getType() !== $tokenType) {
-            throw new SyntaxException('syntax error. unexpected：' . $token->getValue);
+            throw new SyntaxException('语法错误， 意外的：' . $token->getValue() .
+                ' 期待 ' .$tokenType
+            );
         }
-        return $token->getValue;
+        return $token->getValue();
     }
 
     public function getIterator()

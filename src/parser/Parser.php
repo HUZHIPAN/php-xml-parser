@@ -5,9 +5,12 @@ namespace xml\parser\parser;
 
 
 use xml\parser\common\ArrayPeekIterator;
+use xml\parser\common\ArrayStack;
 use xml\parser\lexer\Token;
 use xml\parser\lexer\TokenType;
 use xml\parser\struct\Node;
+use xml\parser\syntax\SemanticAnalyse;
+use xml\parser\syntax\SyntaxException;
 
 class Parser
 {
@@ -15,31 +18,33 @@ class Parser
     /**
      * Notice: 解析元组为节点树
      * @param array $tokens 词法分析得到的结果
-     * @return Node XML树根节点
+     * @return Context
      *
      * Author: huzhipan
      * Time: 2021/10/30 18:10
+     * @throws SyntaxException
      */
     public static function parse(array $tokens)
     {
-        $rootNode = null;
+        $context = new Context();
+
         $it = new ArrayPeekIterator($tokens);
-
-        $node = null;
         while ($it->hasNext()) {
-            $token = $it->next();
-            if ($token->getType() === TokenType::TAG_BEGIN_SYMBOL) {
+            $statementTokens = [];
+            while ($it->hasNext()) {
                 $token = $it->next();
-                $node = new Node($token->getValue());
-                if ($rootNode === null) {
-                    $rootNode = $node;
+                $statementTokens[] = $token;
+                if ($token->getType() === TokenType::TAG_END_SYMBOL) {
+                    if ($it->hasNext() && $it->peek()->getType() === TokenType::TAG_TEXT_CONTENT) {
+                        $statementTokens[] = $it->next();
+                    }
+                    break;
                 }
-
             }
+            SemanticAnalyse::AnalyseAndExecute($statementTokens, $context);
         }
 
-
-        return $rootNode;
+        return $context;
     }
 
 
@@ -52,6 +57,7 @@ class Parser
      */
     private static function parseRowCode($tokens)
     {
+
 
     }
 

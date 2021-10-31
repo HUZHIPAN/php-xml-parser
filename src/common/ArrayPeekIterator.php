@@ -40,6 +40,10 @@ class ArrayPeekIterator implements PeekIterator
 
     public function peek()
     {
+//        if (!isset($this->array[$this->pointer])) {
+//            $a = 1;
+//            return $this->array[$this->pointer-1];
+//        }
         return $this->array[$this->pointer];
     }
 
