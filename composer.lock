@@ -8,7 +8,6 @@
     "packages": [],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
