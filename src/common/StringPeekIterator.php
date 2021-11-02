@@ -38,10 +38,21 @@ class StringPeekIterator implements PeekIterator
         return $this->pointer < $this->end_pointer;
     }
 
+    // 查看下一个元素
     public function peek()
     {
         return $this->string[$this->pointer];
     }
+
+    // 不报错地窥看下几个元素
+    public function silencePeek($span)
+    {
+        if (isset($this->string[$this->pointer +($span-1)])) {
+            return $this->string[$this->pointer +($span-1)];
+        }
+        return null;
+    }
+
 
     public function peekPrev()
     {

@@ -1,6 +1,13 @@
+
+
+
+<!--<?xml test="ds" version="abcd" ?>-->
+
+<?tsst ?>
 <soap:Envelope xmlns:soap="http://schelope/" tt='00123' xmlns:srrc="http://ww.c.org.cn">
     <test>helloworld</test>
     <xs:sequence>
+        <?xml test="ds" version="abcd" ?>
         <xs:element minOccurs="0" name="TransId" type="xs:string"/>
         <xs:element minOccurs="0" name="BizKey" type="xs:string"/>
         <xs:element minOccurs="0" name="PSCode" type="xs:string"/>
@@ -48,3 +55,5 @@
         </srrc:responseBody>
     </soap:Body>
 </soap:Envelope>
+
+<!--

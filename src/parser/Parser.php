@@ -33,6 +33,11 @@ class Parser
             $statementTokens = [];
             while ($it->hasNext()) {
                 $token = $it->next();
+                // 处理xml注释
+                if ($token->getType() === TokenType::ANNOTATION_CONTENT) {
+                    $context->addAnnotation($token->getValue());
+                    continue;
+                }
                 $statementTokens[] = $token;
                 if ($token->getType() === TokenType::TAG_END_SYMBOL) {
                     if ($it->hasNext() && $it->peek()->getType() === TokenType::TAG_TEXT_CONTENT) {
@@ -41,7 +46,10 @@ class Parser
                     break;
                 }
             }
-            SemanticAnalyse::AnalyseAndExecute($statementTokens, $context);
+            if (!empty($statementTokens)) {
+                SemanticAnalyse::AnalyseAndExecute($statementTokens, $context);
+            }
+
         }
 
         return $context;

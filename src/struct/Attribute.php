@@ -11,7 +11,7 @@ namespace xml\parser\struct;
  * @author HUZHIPAN <huzhipan@lwops.cn>
  * @time 2021/10/30 17:50
  */
-class Attribute
+class Attribute extends FormatAbstract
 {
     private $name;  // 属性名
     private $value; // 属性值
@@ -47,4 +47,8 @@ class Attribute
         return $this->value;
     }
 
+    public function jsonSerialize()
+    {
+        return $this->getValue();
+    }
 }

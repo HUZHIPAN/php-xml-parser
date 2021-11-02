@@ -3,7 +3,9 @@
     "description": "php\u0010\u0010\u0010xml\u0010\u0010\u0010",
     "type": "composer-plugin",
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "composer-plugin-api": "1.0.0",
+      "ext-json": "*"
     },
     "autoload":{
         "psr-4":{

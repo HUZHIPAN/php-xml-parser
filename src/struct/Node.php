@@ -3,6 +3,8 @@
 
 namespace xml\parser\struct;
 
+
+
 /**
  * @notice: XML元素节点
  * @package xml\parser\struct
@@ -10,7 +12,7 @@ namespace xml\parser\struct;
  * @author HUZHIPAN <huzhipan@lwops.cn>
  * @time 2021/10/30 17:57
  */
-class Node
+class Node extends FormatAbstract
 {
     private $name;               // 节点名称
     private $nodeType;           // 节点类型
@@ -62,6 +64,18 @@ class Node
     }
 
     /**
+     * Notice: 获取子节点
+     * @return array
+     *
+     * Author: huzhipan
+     * Time: 2021/11/2 17:00
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
      * Notice: 添加节点属性
      * @param Attribute $attribute
      *
@@ -105,6 +119,27 @@ class Node
     }
 
 
+    public function toArray()
+    {
+        return json_decode(json_encode($this), true);
+    }
+
+    /**
+     * Notice: 序列化接口
+     * @return array|mixed
+     *
+     * Author: huzhipan
+     * Time: 2021/11/2 16:38
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+        foreach ($this as $key => $val) {
+            if ($key == 'nodeType' || $key == 'childNodeUseHashMap') continue;
+            $data[$key] = $val;
+        }
+        return $data;
+    }
 
 
 }

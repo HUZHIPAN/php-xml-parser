@@ -21,9 +21,9 @@ https://github.com/HUZHIPAN/php-xml-parser.git
   ```php
   use xml\parser\PHPXmlParser;
   // 返回Node类实例（节点树）
-  $node = PHPXmlParser::parseXmlToObject($xmlBody);
+  $node = PHPXmlParser::parseXmlToObject('<xml></xml>');
   // 返回php数组，按xml层级组装
-  $node = PHPXmlParser::parseXmlToArray($xmlBody);
+  $node = PHPXmlParser::parseXmlToArray("<tag></tag>");
   ```
 
 * `examples/` 目录下有调用示例
@@ -32,7 +32,7 @@ https://github.com/HUZHIPAN/php-xml-parser.git
 
 ## ⌛️ 实现细节
 
-**词法分析 ** ->  **语法分析** -> **语义解释** ->  **渲染节点**
+**词法分析** ->  **语法分析** -> **语义解释** ->  **渲染节点**
 
 1. 将xml字符串的每一位抽象成流单元，迭代不断向后推进
 2. 使用有限状态机提取token（标识符）,支持的词组可以查看代码中的TokenType类

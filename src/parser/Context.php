@@ -16,17 +16,21 @@ use xml\parser\syntax\SyntaxException;
  */
 class Context
 {
-    private $nodeStack; // 节点栈
-    private $rootNode;  // 根节点
+    private $nodeStack;   // 节点栈
+    private $rootNode;    // 根节点
+    private $commands;    // 指令和声明
+    private $annotations; // XML注释
 
     public function __construct()
     {
-        $this->nodeStack = new ArrayStack();
-        $this->rootNode = new Node('xml');
+        $this->nodeStack   = new ArrayStack();
+        $this->rootNode    = new Node('XML');
+        $this->commands    = [];
+        $this->annotations = [];
     }
 
     /**
-     * Notice: 获取根节点（节点树）
+     * Notice: 获取虚拟根节点（节点树）
      * @return Node
      *
      * Author: huzhipan
@@ -35,6 +39,25 @@ class Context
     public function getRootNode()
     {
         return $this->rootNode;
+    }
+
+
+    /**
+     * Notice: 获取解析的xml根节点
+     * @return mixed
+     *
+     * Author: huzhipan
+     * Time: 2021/11/2 16:53
+     */
+    public function getXmlRoot()
+    {
+        // 屏蔽虚拟根节点
+        $rootNode = $this->getRootNode();
+        $children = $rootNode->getChildren();
+        if (count($children) == 1) {
+            return end($children);
+        }
+        return $rootNode;
     }
 
     /**
@@ -46,7 +69,7 @@ class Context
      */
     public function mountNode(Node $node)
     {
-        $nodeStack = $this->getNodeStack();
+        $nodeStack   = $this->getNodeStack();
         $currentNode = $nodeStack->isEmpty() ? $this->rootNode : $nodeStack->peek();
         $currentNode->addChild($node);
         $nodeStack->push($node);
@@ -74,6 +97,30 @@ class Context
     public function getNodeStack()
     {
         return $this->nodeStack;
+    }
+
+    /**
+     * Notice: 指令节点
+     * @param Node $node
+     *
+     * Author: huzhipan
+     * Time: 2021/11/2 14:49
+     */
+    public function addCommandNode(Node $node)
+    {
+        $this->commands[$node->getName()] = $node;
+    }
+
+    /**
+     * Notice: 添加一段注释
+     * @param string $annotation
+     *
+     * Author: huzhipan
+     * Time: 2021/11/2 14:51
+     */
+    public function addAnnotation(string $annotation)
+    {
+        $this->annotations[] = $annotation;
     }
 
 }

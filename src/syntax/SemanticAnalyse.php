@@ -6,14 +6,16 @@ namespace xml\parser\syntax;
 
 use xml\parser\lexer\TokenType;
 use xml\parser\parser\Context;
+use xml\parser\syntax\statement\DefinitionCommandTag;
 use xml\parser\syntax\statement\DefinitionNodeTag;
 use xml\parser\syntax\statement\FinishNodeTag;
 
 class SemanticAnalyse
 {
-    const DEFINITION_NODE      = 1; // 声明节点
-    const DEFINITION_ATTRIBUTE = 2; // 定义属性
-    const FINISH_NODE          = 3; // 节点结束
+    const DEFINITION_NODE        = 1; // 声明节点
+    const DEFINITION_ATTRIBUTE   = 2; // 定义属性
+    const FINISH_NODE            = 3; // 节点结束
+    const DEFINITION_COMMAND_TAG = 4; // 声明指令标签
 
 
     /**
@@ -36,12 +38,11 @@ class SemanticAnalyse
             case SemanticAnalyse::FINISH_NODE:
                 (new FinishNodeTag($tokens))->run($context);
                 break;
+            case SemanticAnalyse::DEFINITION_COMMAND_TAG:
+                (new DefinitionCommandTag($tokens))->run($context);
         }
 
     }
-
-
-
 
 
     public static function semanticType($tokens)
@@ -49,6 +50,8 @@ class SemanticAnalyse
         // TODO 暂时处理
         if (isset($tokens[1]) && $tokens[1]->getType() === TokenType::TAG_OVER_SYMBOL) {
             return self::FINISH_NODE;
+        } elseif (isset($tokens[1]) && $tokens[1]->getType() === TokenType::TAG_COMMAND_SYMBOL) {
+            return self::DEFINITION_COMMAND_TAG;
         } else {
             return self::DEFINITION_NODE;
         }

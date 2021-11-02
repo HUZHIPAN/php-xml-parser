@@ -21,9 +21,9 @@ https://github.com/HUZHIPAN/php-xml-parser.git
   ```php
   use xml\parser\PHPXmlParser;
   // 返回Node类实例（节点树）
-  $node = PHPXmlParser::parseXmlToObject($xmlBody);
+  $node = PHPXmlParser::parseXmlToObject('<xml></xml>');
   // 返回php数组，按xml层级组装
-  $node = PHPXmlParser::parseXmlToArray($xmlBody);
+  $node = PHPXmlParser::parseXmlToArray("<tag></tag>");
   ```
 
 * `examples/` 目录下有调用示例

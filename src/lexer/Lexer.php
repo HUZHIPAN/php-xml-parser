@@ -31,9 +31,29 @@ class Lexer
                 continue;
             }
 
+            // 提取注释  循环不变式
+            if ($char === '<' && $it->silencePeek(1) === '!' && $it->silencePeek(2) === '-' && $it->silencePeek(3) === '-') {
+                $s = $char . $it->next() . $it->next() . $it->next();
+                while ($it->hasNext()) {
+                    $s .= $it->next();
+                    if ($it->silencePeek(1) === '-' && $it->silencePeek(2) === '-' && $it->silencePeek(3) === '>') {
+                        $s = $s . $it->next() . $it->next() . $it->next();
+                        break;
+                    }
+                }
+                $tokens[] = new Token(TokenType::ANNOTATION_CONTENT, $s);
+                continue;
+            }
+
             // 标签结束
             if ($char === '/') {
                 $tokens[] = new Token(TokenType::TAG_OVER_SYMBOL, $char);
+                continue;
+            }
+
+            // 指令标签
+            if ($char === '?') {
+                $tokens[] = new Token(TokenType::TAG_COMMAND_SYMBOL, $char);
                 continue;
             }
 
