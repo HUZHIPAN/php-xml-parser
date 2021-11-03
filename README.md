@@ -10,15 +10,18 @@ https://github.com/HUZHIPAN/php-xml-parser.git
 
 ## ✨使用方法
 
-* 推荐使用composer进行安装
+* 一、使用composer进行安装
 
   ```shell
   composer require huzhipan/php-xml-parser
   ```
 
-* 示例
+* 二、使用包源码下面的autoload加载器 示例：
 
   ```php
+  // 不依赖composer等其他管理工具，更简洁
+  require_once __DIR__ . '/src/autoload.php';
+  
   use xml\parser\PHPXmlParser;
   // 返回Node类实例（节点树）
   $node = PHPXmlParser::parseXmlToObject('<xml></xml>');

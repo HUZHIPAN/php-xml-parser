@@ -1,9 +1,10 @@
 <?php
 
+ini_set('display_errors', 'ON');
 
-include_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../src/autoload.php';
 
-use xml\parser\PHPXmlParser;
+use \xml\parser\PHPXmlParser;
 use xml\parser\struct\Node;
 
 
