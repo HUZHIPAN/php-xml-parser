@@ -51,15 +51,14 @@ class Node extends FormatAbstract
     public function addChild(Node $node)
     {
         if (isset($this->children[$node->getName()])) {
-            $this->childNodeUseHashMap = false;
-            $this->children = array_values($this->children);
+            if (!is_array($this->children[$node->getName()])) {
+                $this->children[$node->getName()] = [ $this->children[$node->getName()] ];
+            }
+            $this->children[$node->getName()][] = $node;
+            return;
         }
 
-        if ($this->childNodeUseHashMap) {
-            $this->children[$node->getName()] = $node;
-        } else {
-            $this->children[] = $node;
-        }
+        $this->children[$node->getName()] = $node;
 
     }
 

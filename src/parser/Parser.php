@@ -24,7 +24,7 @@ class Parser
      * Time: 2021/10/30 18:10
      * @throws SyntaxException
      */
-    public static function parse(array $tokens)
+    public static function parse(array &$tokens)
     {
         $context = new Context();
 

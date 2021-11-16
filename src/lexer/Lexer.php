@@ -18,7 +18,7 @@ class Lexer
      * Author: huzhipan
      * Time: 2021/10/30 12:18
      */
-    public static function makeTokenTuple($string)
+    public static function makeTokenTuple(&$string)
     {
         $tokens = [];
 
